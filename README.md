@@ -49,7 +49,7 @@ After having successfully obtained your credentials (please keep them save and c
 
 ### Setting up the MYSQL Database
 
-Simply launch your MYSQL Workbench, copy the contents of [tweet_db.sql]() file into a blank SQL tab and execute. This creates a database called **tweet_db**, and a table (**elections**) in the **tweet_db** database.
+Simply launch your MYSQL Workbench, copy the contents of [tweet_db.sql](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/tweet_db.sql) file into a blank SQL tab and execute. This creates a database called **tweet_db**, and a table (**elections**) in the **tweet_db** database.
 
 ### Starting the Streaming App
 
