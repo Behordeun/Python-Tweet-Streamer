@@ -63,7 +63,7 @@ You can confirm that the job is running smoothly by refreshing your database at 
 
 #### NB:
 
-Only seventeen (17) attributes were collected and stored into the database. If you are interested in more features, then you can tweak both the attached SQL file [tweet_db.sql](https://github.com/Behordeun/tweet-streamer/blob/41da6713602b0fe97f9e016564063f75accc75f0/tweet_db.sql) and the python file [app.py](https://github.com/Behordeun/tweet-streamer/blob/41da6713602b0fe97f9e016564063f75accc75f0/app.py)
+Only seventeen (17) attributes were collected and stored into the database. If you are interested in more features, then you can tweak both the attached SQL file [tweet_db.sql](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/tweet_db.sql) and the python file [app.py](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/app.py)
 
 Please feel free to fork this repo if you are interested in contributing to the project as I look forward to adding addional features to the app in due time.
 
