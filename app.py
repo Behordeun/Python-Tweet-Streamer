@@ -1,3 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jun 30 10:18:37 2022
+Latest Update on Fri Jul 01 2022
+
+@author: Behordeun
+"""
+##########################################################################
+# 1. This Script will capture and save to MYSQL database (table), a stream of tweets according to the keyword(s) input by the user.
+# 2. The file is saved as a into the database specified in the credentials script (keys.py)
+# 3. If this script is run more than once with the same keyword, the database (table) with the keyword will be incremented
+# 4. Script will run till and error is encountered in the stream or it is stopped with "Ctrl+C" twice.
+##########################################################################
+
 import mysql.connector
 from mysql.connector import Error
 import tweepy
