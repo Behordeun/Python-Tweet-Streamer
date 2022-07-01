@@ -130,3 +130,7 @@ dmypy.json
 
 # credentials
 keys.py
+uploader.py
+streamer.py
+streamer_test.py
+.vscode/
