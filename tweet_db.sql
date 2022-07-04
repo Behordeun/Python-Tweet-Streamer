@@ -17,7 +17,8 @@ USE tweet_db;
 CREATE TABLE elections (
     created_at TIMESTAMP NOT NULL,
     tweet_id varchar(255) NOT NULL,
-    tweet_text TEXT(1000) CHAR SET utf8 COLLATE utf8_unicode_ci,
+    tweet_text TEXT,
+    cleaned_tweet TEXT,
     source VARCHAR(255),
     username VARCHAR(50),
     retweet_count INT,
@@ -32,5 +33,10 @@ CREATE TABLE elections (
     coordinates VARCHAR(100),
     place VARCHAR(100),
     location VARCHAR(255)
-)CHARACTER SET latin1 COLLATE latin1_bin;
+)CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+-- Alter database to enforce character set and collation.
+ALTER DATABASE 
+    tweet_db 
+    CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_unicode_ci;

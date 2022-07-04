@@ -2,7 +2,6 @@
 """
 Created on Thu Jun 30 10:18:37 2022
 Latest Update on Fri Jul 01 2022
-
 @author: Behordeun
 """
 ##########################################################################
@@ -20,7 +19,9 @@ from dateutil import parser
 import time
 import os
 import subprocess
-from keys import consumer_key, consumer_secret, access_token, access_token_secret, host, password, database, user, charset
+from textblob import TextBlob
+import re
+from keys import consumer_key, consumer_secret, access_token, access_token_secret, host, password, database, user, charset, table
 
 # importing file which sets env variable
 #subprocess.call("./settings.sh", shell = True)
@@ -36,6 +37,7 @@ def connect(
         created_at,
         tweet_id,
         tweet_text,
+        cleaned_tweet,
         source,
         username,
         retweet_count,
@@ -63,11 +65,12 @@ def connect(
             """
             cursor = con.cursor()
             # twitter, golf
-            query = "INSERT INTO elections_db (created_at, tweet_id, tweet_text, source, username, retweet_count, followers_count, friends_count, listed_count, favourites_count, statuses_count, following, follow_request_sent, notifications, coordinates, place, location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query = f"INSERT INTO {table} (created_at, tweet_id, tweet_text, cleaned_tweet, source, username, retweet_count, followers_count, friends_count, listed_count, favourites_count, statuses_count, following, follow_request_sent, notifications, coordinates, place, location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             cursor.execute(query, (
                 created_at,
                 tweet_id,
                 tweet_text,
+                cleaned_tweet,
                 source,
                 username,
                 retweet_count,
@@ -105,6 +108,20 @@ class Streamlistener(tweepy.Stream):
             # returning false disconnects the stream
             return False
 
+    def clean_tweet(self, tweet):
+        """
+        Clean the tweet text by removing links, special characters, hashtags, etc.
+        Create a new attribute called 'cleaned_tweet' that contains the clean tweet text
+        """
+        tweet = re.sub('@\\S+', '', tweet)  # remove all @username tags
+        tweet = re.sub('RT', '', tweet)  # remove RT tags
+        tweet = re.sub('#\\S+', '', tweet)  # remove all #hashtags
+        tweet = re.sub('https://\\S+', '', tweet)  # remove all https links
+        tweet = re.sub('http://\\S+', '', tweet)  # remove all http links
+        # remove all special characters
+        tweet = re.sub('[^A-Za-z]+', ' ', tweet)
+        return tweet
+
     def on_data(self, data):
         """This method reads in tweet data as Json and extracts the data we want."""
         try:
@@ -114,7 +131,10 @@ class Streamlistener(tweepy.Stream):
                 created_at = parser.parse(raw_data['created_at'])
                 tweet_id = raw_data['id']
                 tweet_text = raw_data['text']
-                source = raw_data['source']
+                cleaned_tweet = self.clean_tweet(raw_data['text'])
+                #source = [text.split('>')[1].split('<')[0]
+                #           for text in raw_data['source']]
+                source = raw_data['source'].split('>')[1].split('<')[0]
                 username = raw_data['user']['screen_name']
                 retweet_count = raw_data['retweet_count']
                 followers_count = raw_data['user']['followers_count']
@@ -137,6 +157,7 @@ class Streamlistener(tweepy.Stream):
                     created_at,
                     tweet_id,
                     tweet_text,
+                    cleaned_tweet,
                     source,
                     username,
                     retweet_count,
@@ -187,5 +208,6 @@ if __name__ == '__main__':
     # Input number of elements
     track = [item for item in input(
         "Enter the list of keywords to track : ").split(',')]
+    print(f'We are tracking tweets on {track}')
 
-    listener.filter(track=track)#, languages=['en'])
+    listener.filter(track=track)  # , languages=['en'])
