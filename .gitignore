@@ -134,3 +134,5 @@ uploader.py
 streamer.py
 streamer_test.py
 .vscode/
+twifesh.py
+*.json

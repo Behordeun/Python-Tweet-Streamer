@@ -1,7 +1,7 @@
 -- This sql file contains queries for creating a new database for our streaming job.
 -- The script also creates a new table for storing the results of the queries.
 
---Check to ensure that the database does not already exist. 
+-- Check to ensure that the database does not already exist. 
 -- If it does, then delete the existing database.
 
 -- NB: Unless you know what you are doing, please avoid using the 'DROP' function as you might not be able to restore the database (or table) after deletion.
