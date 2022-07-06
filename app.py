@@ -97,8 +97,9 @@ def connect(
 
     return
 
-
 # Tweepy class to access Twitter API
+
+
 class Streamlistener(tweepy.Stream):
 
     def on_connect(self):
@@ -117,7 +118,8 @@ class Streamlistener(tweepy.Stream):
         """
         tweet = re.sub('https://\\S+', '', tweet)  # remove all https links
         tweet = re.sub('http://\\S+', '', tweet)  # remove all http links
-        tweet = re.sub('[^A-Za-z]+', ' ', tweet)  # remove all special characters
+        # remove all special characters
+        tweet = re.sub('[^A-Za-z]+', ' ', tweet)
         return tweet
 
     def sentiment_analyzer_score(self, tweet):
@@ -170,7 +172,7 @@ class Streamlistener(tweepy.Stream):
                     self.clean_tweet(raw_data['text']))
                 sentiment_label = self.sentiment_analyzer_label(
                     self.clean_tweet(raw_data['text']))
-                
+
                 # insert data just collected into MySQL database
                 connect(
                     created_at,
