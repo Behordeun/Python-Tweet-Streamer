@@ -8,9 +8,16 @@ This project is focused on streaming live tweets that contains specified keyword
 
 To run the streamling job, simply clone this repository by running the below command on your terminal:
 
-`git clone https://github.com/Behordeun/tweet-streamer.git`
-
+```
+git clone https://github.com/Behordeun/tweet-streamer.git
 cd tweet-streamer
+```
+
+Install the required modules/libraries
+
+```
+pip install -r requirements.txt
+```
 
 ### Prerequisites
 
@@ -23,37 +30,11 @@ cd tweet-streamer
 
 Upon the creation of your Twitter Developers account, simply log into your account and create a project so you may be able to generate the needed credentials for accessing the Twitter API (Application Programming Interface) [see here for tips on getting started with Twitter Developers account](https://developer.twitter.com/en/docs/tutorials/step-by-step-guide-to-making-your-first-request-to-the-twitter-api-v2).
 
-After having successfully obtained your credentials (please keep them save and confidential as much as you can), simply create a python file (I named mine **keys.py**), and update it with the following details:
-
-`[Twitter Developers Account Credentials]`
-
-`access_token = "your access token" `
-
-`access_token_secret = "your access token secret" `
-
-`consumer_key = "your consumer key" `
-
-`consumer_secret = "your consumer secret"`
-
-`[MYSQL Credentials]`
-
-`user = 'your mysql username'`
-
-`password = 'your password'`
-
-`database = 'specify your database name'`
-
-`table = 'specify the table name'`
-
-`charset = 'specify your desired encoding style' (optional)`
-
-`host = 'specify your host'`
-
-### Setting up the MYSQL Database
+## Setting up the MYSQL Database
 
 Simply launch your MYSQL Workbench, copy the contents of [tweet_db.sql](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/tweet_db.sql) file into a blank SQL tab and execute. This creates a database called **tweet_db**, and a table (**elections**) in the **tweet_db** database.
 
-### Starting the Streaming App
+## Starting the Streaming App
 
 After having setup up the neccessary files and services, simply run the below command on your terminal
 
