@@ -67,6 +67,8 @@ You can confirm that the job is running smoothly by refreshing your database at 
 
 Only twenty (20) data points (attributes) were collected and stored into the database. If you are interested in more features, then you can tweak both the attached SQL file [tweet_db.sql](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/tweet_db.sql) and the python file [app.py](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/app.py) to suit your use case.
 
+For safety purpose: you are not expected to commit your credentials. Hence, it is advised that you add keys.py to the **.gitignore** file.
+
 Please feel free to fork this repo if you are interested in contributing to the project as I look forward to adding addional features to the app in due time.
 
 If you encounter any issues running the streaming job, please do not hesistate to contact me for further clarity and assitance.

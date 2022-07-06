@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # credentials
-keys.py
+main_keys.py
 uploader.py
 streamer.py
 streamer_test.py
