@@ -136,3 +136,4 @@ streamer_test.py
 .vscode/
 twifesh.py
 *.json
+tweets.sql

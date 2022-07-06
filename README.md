@@ -2,7 +2,7 @@
 
 ## About
 
-This project is focused on streaming live tweets that contains specified keywords into a **MYSQL** database for easy access among professionals who have been granted access to the database.
+This project is focused on streaming live tweets that contains specified keywords, and storing them into a specified **MYSQL** database for easy access among professionals who have been granted access to the database. The app will as well clean the tweet texts, and obtain the respective sentiment scores & labels before storing the streamed tweets into the specified database
 
 ## Running the Streaming Job
 
@@ -41,7 +41,9 @@ After having successfully obtained your credentials (please keep them save and c
 
 `password = 'your password'`
 
-`database = 'specify your desired database'`
+`database = 'specify your database name'`
+
+`table = 'specify the table name'`
 
 `charset = 'specify your desired encoding style' (optional)`
 
@@ -63,7 +65,7 @@ You can confirm that the job is running smoothly by refreshing your database at 
 
 #### NB:
 
-Only seventeen (17) attributes were collected and stored into the database. If you are interested in more features, then you can tweak both the attached SQL file [tweet_db.sql](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/tweet_db.sql) and the python file [app.py](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/app.py)
+Only twenty (20) data points (attributes) were collected and stored into the database. If you are interested in more features, then you can tweak both the attached SQL file [tweet_db.sql](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/tweet_db.sql) and the python file [app.py](https://github.com/Behordeun/tweet-streamer-MYSQL/blob/5fc999f497bacdf01ba29659232e7a609359ce4e/app.py) to suit your use case.
 
 Please feel free to fork this repo if you are interested in contributing to the project as I look forward to adding addional features to the app in due time.
 
@@ -71,34 +73,16 @@ If you encounter any issues running the streaming job, please do not hesistate t
 
 ## About the Author
 
-Muhammad Abiodun Sulaiman is a graduate of Mathematics and Statistics from the prestigious Federal University of Technology, Minna, Niger State, Nigeria with Second-Class Honors. He is a smart, innovative, and seasoned analytics expert with a track record dating back to his undergraduate days.
+Muhammad Abiodun Sulaiman is a data analytics professional with vast experience spread across **Data Science and Business Intelligence.** He is a Cloud DevOps Engineering enthusiat who is skilled at **Infrastructure as Code** using tools such as **Terraform, Docker, Kubernetes, Ansible, AWS Cloudformation, AWS Cloudwatch, etc.,**
 
-Muhammad is a Data Science Fellow with Insight2Impact (i2i) facilities. A Microsoft Recognized Data-scientist which he bagged with an overall performance of 85%.  As a top-performing data enthusiast in the DataHack4FI Innovation Award 2019 season 3, He was awarded a gold badge (Medal). He finished up in the top 3 in the Microsoft Capstone Challenge for Mortgage Loan Approval, a Machine Learning Challenge that Involves predictive modelling. Similarly, he finished up in the top 1% in the Data Science Nigeria 2019 Artificial Intelligence preselection Kaggle Challenge, a Machine Learning Challenge that also Involves predictive modelling.
+He currently works at **Tsaron Technologies Limited** as a **Telematics Data Scientist**, and is specialized at building **Machine Learning models** for **Scoring** and **Classifying** drivers into different **safety zones** based on their **driving behaviours**.
 
-He also finished up in the top 5 Data Scientists who participated in the Data Science Nigeria 2019 AI Bootcamp pre-selection Kaggle Challenge, which involves the application of Artificial Intelligence to build an algorithmic predictive model for staff promotion.
+He can be contacted via the following medium:
 
-Muhammad doubles as a Google Africa Developers Scholar and a member of the Facebook Developers Circle (DevC), he bagged in 2019, 2020 and 2021 Andela Learning Community (ALC 4.0) scholarships where he got admitted for the Google Cloud Architecture Engineering tracks consecutively.
+1. __Email:__ abiodun.msulaiman@gmail.com
+2. __LinkedIn:__[Muhammad Abiodun Sulaiman](https://www.linkedin.com/in/muhammad-abiodun-sulaiman)
+3. __Twitter:__[@Prince_Analyst](https://www.twitter.com/Prince_Analyst)
+4. __Facebook:__[Muhammad Abiodun Sulaiman](https://www.facebook.com/muhammad.herbehordeun)
+5. __Tel:__ +(234)810 831 6393
 
- As a passionate self-taught Data-scientist who transitioned from being a Data Analyst, who is enthusiastic about training and helping aspiring data enthusiasts towards honing their analytical skills, He started an online coding class in collaboration with a few friends during his service year in 2019 to help interested people (graduates and nongraduates) learn how to code towards a data related career.
-
-He is an experienced Data Scientist and Business Intelligence Analyst with a demonstrated history of working in the Research industry, extracting actionable insights from massive amounts of data, and with in-depth experience in applying advanced machine learning and data mining methods in analyzing data and in handling multiple business problems across Retail and Technology Domain. Skilled in Machine Learning, Deep Learning, Software Engineering (Backend), Statistical Modeling, Data Visualization with strong presentation and communication skills, Strong Business Development, excellent Critical Thinking and Problem-solving skills and attention to detail.
-
-Muhammad currently works as a Data Scientist at Tsaron Technologies Limited, Lagos, Nigeria. Prior to his current role, he was a Data Scientist and Python Back-end Software Engineer at the Nigerian branch of Rhics UK. Muhammad had worked with different teams of Data Analysts/Scientists and Developers on freelance projects. He is also partnering with other innovative minds to develop solutions to varieties of problems across different sectors, health and finance inclusive.
-
-Muhammad had over the last 5 years mentored over 20 data enthusiasts who are either into Business Analytics or Artificial Intelligence and successfully trained over 15 people on either Data Analysis, Data Science or Business Intelligence.
-
-__Author:__ Muhammad Abiodun Sulaiman
-
-__Email:__ abiodun.msulaiman@gmail.com
-
-__LinkedIn:__ [Muhammad Abiodun Sulaiman](https://www.linkedin.com/in/muhammad-abiodun-sulaiman)
-
-__Twitter:__ [@Prince_Analyst](https://www.twitter.com/Prince_Analyst)
-
-__Facebook:__ [Muhammad Abiodun Sulaiman](https://www.facebook.com/muhammad.herbehordeun)
-
-__Tel:__ +(234)810 831 6393
-
-![My Pix.png](https://user-images.githubusercontent.com/45925374/140731559-e56f334c-8e89-48b8-92f7-fbe66a7447d9.png)
-
-# THANK YOU
+***THANK YOU FOR TRYING OUT MY APP***

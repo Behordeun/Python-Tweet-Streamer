@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jun 30 10:18:37 2022
-Latest Update on Fri Jul 01 2022
-@author: Behordeun
+Latest Update on Mon Jul  4 16:22 2022
+
+@author: Muhammad
 """
+
 ##########################################################################
 # 1. This Script will capture and save to MYSQL database (table), a stream of tweets according to the keyword(s) input by the user.
 # 2. The file is saved as a into the database specified in the credentials script (keys.py)
@@ -16,15 +19,9 @@ from mysql.connector import Error
 import tweepy
 import json
 from dateutil import parser
-import time
-import os
-import subprocess
-from textblob import TextBlob
 import re
+from transformers.pipelines import pipeline
 from keys import consumer_key, consumer_secret, access_token, access_token_secret, host, password, database, user, charset, table
-
-# importing file which sets env variable
-#subprocess.call("./settings.sh", shell = True)
 
 consumer_key = consumer_key
 consumer_secret = consumer_secret
@@ -51,7 +48,9 @@ def connect(
         notifications,
         coordinates,
         place,
-        location):
+        location,
+        sentiment_score,
+        sentiment_label):
     """
     connect to MySQL database and insert twitter data
     """
@@ -65,7 +64,7 @@ def connect(
             """
             cursor = con.cursor()
             # twitter, golf
-            query = f"INSERT INTO {table} (created_at, tweet_id, tweet_text, cleaned_tweet, source, username, retweet_count, followers_count, friends_count, listed_count, favourites_count, statuses_count, following, follow_request_sent, notifications, coordinates, place, location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            query = f"INSERT INTO {table} (created_at, tweet_id, tweet_text, cleaned_tweet, source, username, retweet_count, followers_count, friends_count, listed_count, favourites_count, statuses_count, following, follow_request_sent, notifications, coordinates, place, location, sentiment_score, sentiment_label) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             cursor.execute(query, (
                 created_at,
                 tweet_id,
@@ -84,7 +83,10 @@ def connect(
                 notifications,
                 coordinates,
                 place,
-                location))
+                location,
+                sentiment_score,
+                sentiment_label
+            ))
             con.commit()
 
     except Error as e:
@@ -113,14 +115,28 @@ class Streamlistener(tweepy.Stream):
         Clean the tweet text by removing links, special characters, hashtags, etc.
         Create a new attribute called 'cleaned_tweet' that contains the clean tweet text
         """
-        tweet = re.sub('@\\S+', '', tweet)  # remove all @username tags
-        tweet = re.sub('RT', '', tweet)  # remove RT tags
-        tweet = re.sub('#\\S+', '', tweet)  # remove all #hashtags
         tweet = re.sub('https://\\S+', '', tweet)  # remove all https links
         tweet = re.sub('http://\\S+', '', tweet)  # remove all http links
-        # remove all special characters
-        tweet = re.sub('[^A-Za-z]+', ' ', tweet)
+        tweet = re.sub('[^A-Za-z]+', ' ', tweet)  # remove all special characters
         return tweet
+
+    def sentiment_analyzer_score(self, tweet):
+        """
+        This will use the transformers sentiment analysis pipeline to analyze the tweet.
+        """
+        sentiment = pipeline('sentiment-analysis', model="distilbert-base-uncased-finetuned-sst-2-english",
+                             tokenizer="distilbert-base-uncased-finetuned-sst-2-english")
+        analysis = sentiment([tweet])
+        return analysis[0]['score']
+
+    def sentiment_analyzer_label(self, tweet):
+        """
+        This will use the transformers sentiment analysis pipeline to analyze the tweet.
+        """
+        sentiment = pipeline('sentiment-analysis', model="distilbert-base-uncased-finetuned-sst-2-english",
+                             tokenizer="distilbert-base-uncased-finetuned-sst-2-english", )
+        analysis = sentiment([tweet])
+        return analysis[0]['label']
 
     def on_data(self, data):
         """This method reads in tweet data as Json and extracts the data we want."""
@@ -132,8 +148,6 @@ class Streamlistener(tweepy.Stream):
                 tweet_id = raw_data['id']
                 tweet_text = raw_data['text']
                 cleaned_tweet = self.clean_tweet(raw_data['text'])
-                #source = [text.split('>')[1].split('<')[0]
-                #           for text in raw_data['source']]
                 source = raw_data['source'].split('>')[1].split('<')[0]
                 username = raw_data['user']['screen_name']
                 retweet_count = raw_data['retweet_count']
@@ -152,6 +166,11 @@ class Streamlistener(tweepy.Stream):
                 else:
                     place = None
                 location = raw_data['user']['location']
+                sentiment_score = self.sentiment_analyzer_score(
+                    self.clean_tweet(raw_data['text']))
+                sentiment_label = self.sentiment_analyzer_label(
+                    self.clean_tweet(raw_data['text']))
+                
                 # insert data just collected into MySQL database
                 connect(
                     created_at,
@@ -171,7 +190,9 @@ class Streamlistener(tweepy.Stream):
                     notifications,
                     coordinates,
                     place,
-                    location)
+                    location,
+                    sentiment_score,
+                    sentiment_label)
                 print("Tweet colleted at: {} ".format(str(created_at)))
         except Error as e:
             print(e)
@@ -179,22 +200,7 @@ class Streamlistener(tweepy.Stream):
 
 if __name__ == '__main__':
 
-    # # #Allow user input
-    # track = []
-    # while True:
-
-    # 	input1  = input("what do you want to collect tweets on?: ")
-    # 	track.append(input1)
-
-    # 	input2 = input("Do you wish to enter another word? y/n ")
-    # 	if input2 == 'n' or input2 == 'N':
-    # 		break
-
-    # print("You want to search for {}".format(track))
-    # print("Initialising Connection to Twitter API....")
-    # time.sleep(2)
-
-    # authentification so we can access twitter
+    # authentication so we can access twitter
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
