@@ -21,7 +21,7 @@ import json
 from dateutil import parser
 import re
 from transformers.pipelines import pipeline
-from keys import consumer_key, consumer_secret, access_token, access_token_secret, host, database, password, user, charset, table
+from main_keys import consumer_key, consumer_secret, access_token, access_token_secret, host, database, password, user, charset, table
 
 consumer_key = consumer_key
 consumer_secret = consumer_secret

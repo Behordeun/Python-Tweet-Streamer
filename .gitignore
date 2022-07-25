@@ -137,3 +137,4 @@ streamer_test.py
 twifesh.py
 *.json
 tweets.sql
+__pycache__/
